@@ -32,7 +32,6 @@ end
 
 function love.load()
   pausado = love.graphics.newImage("menu/paused.png")
-  pause = love.graphics.newImage("menu/pause.jpg")
   leaderboard = love.graphics.newImage("menu/leaderboard.png")
   boss1 = love.graphics.newImage("enemies/boss1.png")
   boss2 = love.graphics.newImage("enemies/boss2.png")
@@ -128,6 +127,10 @@ function love.update(dt)
     button_spawn(620,530,"Restart","restart")
     button_spawn(50,530,"Quit","sair")
     button_draw()
+  end
+
+  if love.keyboard.isDown("p") then
+	  gamestate = "pause"
   end
 
   if love.keyboard.isDown("backspace") then
@@ -653,7 +656,7 @@ function love.draw()
 
         local dir_y= 0  -- control shuriken aiming through hero frame
         local dir_x= 1 
-        while (love.keyboard.isDown("space")) and hero.shot <=0 do
+        while (love.keyboard.isDown("space") or love.keyboard.isDown(" ")) and hero.shot <=0 do
           if hero.anim_frame>=9 and hero.anim_frame <= 12 then -- Up 
             dir_y = -1 
             dir_x = 0 
@@ -731,7 +734,6 @@ function love.draw()
   end
 
   if gamestate == "pause" then
-    love.graphics.draw(pause,0,0)
     love.graphics.draw(pausado,250,100)
     button_draw()
   end 
